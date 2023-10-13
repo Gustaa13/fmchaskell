@@ -1,12 +1,10 @@
 module Nat where
 
 import Prelude
-    hiding ((+), (*), (^), (-), maximum, minimum, last, (<), (>), (>=), (<=), init, fib, isPrefixOf, drop, take, enumFromTo, 
-    reverse, (++), product, sum, elem, length, quot, min, gcd, lcm, div, max, pred, rem)
-import Order
-
-data Nat = O | S Nat
-    deriving (Eq, Show)
+    hiding ((+), (*), (^), (-), maximum, minimum, last, (/), (<), (>), (>=), (<=), init, fib, isPrefixOf, drop, take, enumFromTo, 
+    reverse, (++), product, sum, elem, length, quot, min, gcd, lcm, div, max, pred, rem, compare)
+import Types
+import Ordering
 
 (+) :: Nat -> Nat -> Nat
 m + O = m
@@ -38,7 +36,7 @@ double (S m) = S (S (double m))
 
 fact :: Nat -> Nat
 fact O = S O
-fact (S m) = (S m) * fact m
+fact (S m) = S m * fact m
 
 fib :: Nat -> Nat 
 fib O = O
@@ -48,6 +46,14 @@ fib (S (S m)) = fib (S m) + fib m
 pred :: Nat -> Nat
 pred O = O
 pred (S m) = m
+
+(/) :: Nat -> Nat -> Nat
+m / n
+    | m < n = O
+    | otherwise = S ((m - n) / m) 
+
+rem :: Nat -> Nat -> Nat
+rem m n = m - ((m / n) * n)
 
 -- div :: Nat -> Nat -> (Nat, Nat)
 -- div m n

@@ -1,16 +1,13 @@
-module Order where
+module Ordering where
 
 import Prelude
     hiding ((<), (>), (<=), (>=), compare)
-import Nat
+import Types ( Nat(..) )
 
-data Order = GT | LT | EQ
-    deriving (Eq, Show)
-
-compare :: Nat -> Nat -> Order
-compare _ O = GT
-compare O _ = LT
-compare n n = EQ
+compare :: Nat -> Nat -> Ordering
+compare (S m) O = GT
+compare O (S n) = LT
+compare O O = EQ
 compare (S m) (S n) = compare m n
     
 (<) :: Nat -> Nat -> Bool
@@ -20,7 +17,7 @@ m < n = compare m n == LT
 m > n = compare m n == GT
     
 (<=) :: Nat -> Nat -> Bool
-m <= n = m < n || compare m n == EQ
+m <= n = m < n || m == n
     
 (>=) :: Nat -> Nat -> Bool
-m >= n = m > n || compare m n == EQ
+m >= n = m > n || m == n
